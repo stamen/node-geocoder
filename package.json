@@ -1,0 +1,11 @@
+{
+  "name": "geocoder",
+  "version": "0.0.0",
+  "main": "index.js",
+  "repository": "",
+  "author": "",
+  "dependencies": {
+    "bossgeo": "0.0.6",
+    "express": "~3.2.0"
+  }
+}
