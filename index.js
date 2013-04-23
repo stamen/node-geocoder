@@ -6,6 +6,11 @@ var BossGeoClient = require("bossgeo").BossGeoClient,
     express = require("express"),
     app = express();
 
+app.configure(function() {
+  app.use(express.logger());
+  app.use(express.compress());
+});
+
 app.get("/", function(req, res) {
   geo.placefinder({
     q: req.query["q"]
