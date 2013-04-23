@@ -18,6 +18,10 @@ app.configure(function() {
 app.get("/", function(req, res) {
   var smallEdge = Math.min(req.query.w || 1000, req.query.h || 500);
 
+  if (!req.query.q) {
+    return res.send(404);
+  }
+
   geo.placefinder({
     q: req.query.q
   }, function(err, rsp) {
@@ -26,7 +30,7 @@ app.get("/", function(req, res) {
       return res.send(500);
     }
 
-    var results = rsp.results.map(function(x) {
+    var results = (rsp.results || []).map(function(x) {
       var radius = +x.radius;
       var zoom = -Math.round(Math.log((radius) / (RADIUS / Math.cos(+x.latitude * π / 180)) / Math.log(smallEdge)));
 
