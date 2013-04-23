@@ -6,14 +6,20 @@ var BossGeoClient = require("bossgeo").BossGeoClient,
     express = require("express"),
     app = express();
 
+// radius of the earth in meters
+var RADIUS = 40075016.69;
+var π = Math.PI;
+
 app.configure(function() {
   app.use(express.logger());
   app.use(express.compress());
 });
 
 app.get("/", function(req, res) {
+  var smallEdge = Math.min(req.query.w || 1000, req.query.h || 500);
+
   geo.placefinder({
-    q: req.query["q"]
+    q: req.query.q
   }, function(err, rsp) {
     if (err) {
       console.warn(err);
@@ -22,20 +28,10 @@ app.get("/", function(req, res) {
 
     var results = rsp.results.map(function(x) {
       var radius = +x.radius;
-      var zoom;
-
-      if (radius >= 1000000) {
-        zoom = 10;
-      } else if (radius >= 100000) {
-        zoom = 12;
-      } else if (radius >= 10000) {
-        zoom = 14;
-      } else {
-        zoom = 16;
-      }
+      var zoom = -Math.round(Math.log((radius) / (RADIUS / Math.cos(+x.latitude * π / 180)) / Math.log(smallEdge)));
 
       return {
-        name: [x.city, x.state, x.country].join(", "),
+        name: [x.city, x.state, x.country].filter(function(x) { return !!x; }).join(", "),
         latitude: +x.latitude,
         longitude: +x.longitude,
         zoom: zoom
