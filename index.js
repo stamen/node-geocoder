@@ -1,5 +1,10 @@
 "use strict";
 
+if (!process.env.CONSUMER_KEY || !process.env.CONSUMER_SECRET) {
+  console.error("Please provide CONSUMER_KEY and CONSUMER_SECRET");
+  process.exit(1);
+}
+
 var BossGeoClient = require("bossgeo").BossGeoClient,
     geo = new BossGeoClient(process.env.CONSUMER_KEY,
                             process.env.CONSUMER_SECRET),
