@@ -23,7 +23,7 @@ app.configure(function() {
 });
 
 app.get("/", function(req, res) {
-  var smallEdge = Math.min(req.query.w || 1000, req.query.h || 500);
+  var smallEdge = Math.min(req.query.w || 1000, req.query.h || 768);
 
   if (!req.query.q) {
     return res.send(404);
