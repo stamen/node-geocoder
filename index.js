@@ -6,6 +6,7 @@ if (!process.env.CONSUMER_KEY || !process.env.CONSUMER_SECRET) {
 }
 
 var BossGeoClient = require("bossgeo").BossGeoClient,
+    cors = require("cors"),
     geo = new BossGeoClient(process.env.CONSUMER_KEY,
                             process.env.CONSUMER_SECRET),
     express = require("express"),
@@ -18,6 +19,7 @@ var π = Math.PI;
 app.configure(function() {
   app.use(express.logger());
   app.use(express.compress());
+  app.use(cors());
 });
 
 app.get("/", function(req, res) {

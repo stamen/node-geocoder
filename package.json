@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "bossgeo": "0.0.6",
-    "express": "~3.2.0"
+    "express": "~3.2.0",
+    "cors": "0.0.5"
   }
 }
