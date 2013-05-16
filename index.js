@@ -36,6 +36,7 @@ app.get("/", function(req, res) {
       console.warn(err);
       return res.send(500);
     }
+    //console.log(rsp);
 
     var results = (rsp.results || []).map(function(x) {
       var radius = +x.radius;
@@ -45,6 +46,7 @@ app.get("/", function(req, res) {
         name: [x.city, x.state, x.country].filter(function(x) { return !!x; }).join(", "),
         latitude: +x.latitude,
         longitude: +x.longitude,
+        state: x.statecode,
         zoom: zoom
       };
     });
