@@ -54,6 +54,17 @@ app.get("/", function(req, res) {
     res.jsonp(results);
   });
 });
+app.get( "/crossdomain.xml", onCrossDomainHandler )
+function onCrossDomainHandler( req, res ) {
+  var xml = '<?xml version="1.0"?>\n<!DOCTYPE cross-domain-policy SYSTEM' +
+            ' "http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd">\n<cross-domain-policy>\n';
+      xml += '<allow-access-from domain="*" to-ports="*"/>\n';
+      xml += '</cross-domain-policy>\n';
+
+  req.setEncoding('utf8');
+  res.writeHead( 200, {'Content-Type': 'text/xml'} );
+  res.end( xml );
+}
 
 app.listen(process.env.PORT || 8080, function() {
   console.log("Listening at http://%s:%d/", this.address().address, this.address().port);
