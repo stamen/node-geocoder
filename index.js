@@ -33,10 +33,12 @@ app.get("/", function(req, res) {
     q: req.query.q
   }, function(err, rsp) {
     if (err) {
+      console.log('-----Error-----: ', rsp);
       console.warn(err);
       return res.send(500);
     }
-    //console.log(rsp);
+
+    console.log(rsp);
 
     var results = (rsp.results || []).map(function(x) {
       var radius = +x.radius;
