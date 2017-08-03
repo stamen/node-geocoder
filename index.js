@@ -38,7 +38,7 @@ app.get("/", function(req, res) {
       return res.send(500);
     }
 
-    console.log(rsp);
+    // console.log(rsp);
 
     var results = (rsp.results || []).map(function(x) {
       var radius = +x.radius;
